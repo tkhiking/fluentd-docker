@@ -1,11 +1,11 @@
-FROM fluent/fluentd:v1.11-debian-1
+FROM fluent/fluentd:v1.13-debian-1
 
 USER root
 
 RUN buildDeps="sudo make gcc g++ libc-dev libffi-dev" \
  && apt-get update \
  && apt-get install -y --no-install-recommends $buildDeps \
- && sudo gem install fluent-plugin-s3 -v 1.5.0 --no-document \
+ && sudo gem install fluent-plugin-s3 -v 1.6.1 --no-document \
  && sudo gem install fluent-plugin-grafana-loki -v 1.2.16 --no-document \
  && sudo gem sources --clear-all \
  && SUDO_FORCE_REMOVE=yes \
