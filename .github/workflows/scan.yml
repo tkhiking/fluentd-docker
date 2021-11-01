@@ -3,11 +3,6 @@ name: scan
 on:
   schedule:
     - cron: '0 0 1 * *'
-  push:
-    branches:
-      - main
-    tags:
-      - 'v*.*.*'
 
 jobs:
   build:
