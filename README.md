@@ -1,6 +1,6 @@
-# fluentd-docker
+# docker-fluentd
 
-[![release](https://github.com/twihike/fluentd-docker/workflows/release/badge.svg)](https://github.com/twihike/fluentd-docker/actions)
+[![release](https://github.com/twihike/docker-fluentd/workflows/release/badge.svg)](https://github.com/twihike/docker-fluentd/actions)
 
 ## Usage
 
