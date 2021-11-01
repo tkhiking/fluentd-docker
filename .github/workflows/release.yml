@@ -2,16 +2,33 @@ name: release
 
 on:
   push:
-    tags: [v*]
+    branches:
+      - main
+    tags:
+      - 'v*.*.*'
 
 jobs:
   release:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - uses: docker/build-push-action@v1
+      - uses: docker/metadata-action@v3
+        id: meta
+        with:
+          images: |
+            ${{ github.actor }}/fluentd
+          tags: |
+            type=ref,event=branch
+            type=ref,event=tag
+            type=semver,pattern={{version}}
+      - uses: docker/setup-qemu-action@v1
+      - uses: docker/setup-buildx-action@v1
+      - uses: docker/login-action@v1
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: ${{ github.actor }}/fluentd
-          tag_with_ref: true
+      - uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}

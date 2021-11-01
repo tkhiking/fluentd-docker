@@ -1,0 +1,21 @@
+name: scan
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    name: scan
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: docker.io/${{ github.actor }}/fluentd:latest
+          format: table
+          severity: HIGH,CRITICAL
